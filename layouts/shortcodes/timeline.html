@@ -1,0 +1,24 @@
+<div class="timeline">
+  {{ range $.Site.Data.timeline }}
+  <div class="timeline-entry">
+    <div class="timeline-year">{{ .year }}</div>
+    <div class="timeline-content">
+      <h3>{{ .title }}</h3>
+      <p>{{ .description }}</p>
+      {{ with .legacy }}
+      <p class="timeline-legacy"><strong>Legacy:</strong> {{ . }}</p>
+      {{ end }}
+      <div class="timeline-sources">
+        {{ with .sources }}
+          {{ with .primary }}
+          <a href="{{ .url }}" target="_blank" rel="noopener">{{ .text }}</a>
+          {{ end }}
+          {{ with .secondary }}
+          | <a href="{{ .url }}" target="_blank" rel="noopener">{{ .text }}</a>
+          {{ end }}
+        {{ end }}
+      </div>
+    </div>
+  </div>
+  {{ end }}
+</div>

@@ -1,0 +1,196 @@
+/* Lakewood Urbanism Guide - Custom Styles */
+/* Color palette inspired by Lake Erie and Lakewood's historic character */
+
+:root {
+  --color-link: #1B6B93;
+  --accent-green: #2E8B57;
+  --accent-gold: #D4A843;
+  --accent-brick: #C75B39;
+  --accent-gradient: linear-gradient(135deg, #1B6B93, #2E8B57);
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --border-radius: 0.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-link: #5DB8D9;
+    --accent-green: #5CB88A;
+    --accent-gold: #E8C36A;
+    --accent-brick: #D98067;
+    --accent-gradient: linear-gradient(135deg, #5DB8D9, #5CB88A);
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Homepage styles */
+.book-page h1:first-of-type {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.book-columns > div {
+  background: var(--body-background, #fff);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  padding: 1.5rem;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.book-columns > div:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Bold label coloring */
+p > strong:first-child {
+  color: var(--color-link);
+}
+
+/* Table styling */
+table thead th {
+  background-color: var(--color-link);
+  color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  table thead th {
+    background-color: #1B6B93;
+  }
+}
+
+/* Timeline styles */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+  border-left: 3px solid var(--color-link);
+}
+
+.timeline-entry {
+  position: relative;
+  margin-bottom: 2rem;
+  padding: 1rem 1.5rem;
+  background: var(--body-background, #fff);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+.timeline-entry::before {
+  content: "";
+  position: absolute;
+  left: -2.65rem;
+  top: 1.5rem;
+  width: 12px;
+  height: 12px;
+  background: var(--color-link);
+  border-radius: 50%;
+  border: 2px solid var(--body-background, #fff);
+}
+
+.timeline-year {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-link);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.timeline-content h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-legacy {
+  font-style: italic;
+  opacity: 0.85;
+}
+
+.timeline-sources {
+  font-size: 0.85rem;
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+.timeline-sources a {
+  color: var(--color-link);
+}
+
+/* Blog list styles */
+.blog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.blog-entry {
+  padding: 1.25rem 1.5rem;
+  background: var(--body-background, #fff);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+.blog-date {
+  font-size: 0.85rem;
+  color: var(--accent-green);
+  font-weight: 600;
+}
+
+.blog-entry h3 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.blog-entry h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.blog-entry h3 a:hover {
+  color: var(--color-link);
+}
+
+.blog-summary {
+  margin: 0;
+  opacity: 0.85;
+}
+
+.blog-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.blog-tag {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.5rem;
+  background: var(--color-link);
+  color: #fff;
+  border-radius: 1rem;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .timeline {
+    padding-left: 1.5rem;
+  }
+
+  .timeline-entry {
+    padding: 0.75rem 1rem;
+  }
+
+  .timeline-entry::before {
+    left: -2.15rem;
+    width: 10px;
+    height: 10px;
+  }
+
+  .book-columns {
+    flex-direction: column;
+  }
+}

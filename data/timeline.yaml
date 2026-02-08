@@ -1,0 +1,143 @@
+- year: 2025
+  title: "Lakewood Common Groundbreaking"
+  description: "The $119 million Lakewood Common mixed-use development broke ground on September 25 on the 5.7-acre former Lakewood Hospital site. The project includes 305 residential units, 25,000 sq ft of retail, a 17,000 sq ft public plaza, and a pocket park."
+  legacy: "The largest single development project in Lakewood's modern history, filling a site that sat vacant since the hospital's 2019 demolition and establishing a new model for mixed-use urban infill in the city."
+  sources:
+    primary:
+      text: "City of Lakewood"
+      url: "https://www.lakewoodoh.gov/groundbreaking-scheduled-for-lakewood-downtown-development-project/"
+    secondary:
+      text: "Cleveland 19"
+      url: "https://www.cleveland19.com/2025/09/25/groundbreaking-119m-development-former-lakewood-hospital-site/"
+
+- year: 2025
+  title: "Complete Streets Ordinance Introduced"
+  description: "Council President Kepple, Mayor George, and councilmembers introduced a Complete Streets ordinance to require that all transportation projects serve pedestrians, bicyclists, transit riders, and motorists."
+  legacy: "Moves Lakewood from a strategic vision to enforceable policy requiring multimodal consideration in every road project."
+  sources:
+    primary:
+      text: "The Land"
+      url: "https://thelandcle.org/stories/lakewood-prioritizes-safe-streets-with-active-transportation-strategic-plan-complete-streets-ordinance/"
+
+- year: 2025
+  title: "Record Female Majority on City Council"
+  description: "Angelina Steiner was appointed in January to fill the at-large seat vacated by Tristan Rader's move to the Ohio House, establishing the first female majority on Lakewood City Council."
+  legacy: "A milestone in representation for a city council that has historically been majority male."
+  sources:
+    primary:
+      text: "City of Lakewood"
+      url: "https://www.lakewoodoh.gov/lakewood-city-council/"
+
+- year: 2024
+  title: "Active Transportation Strategic Plan Adopted"
+  description: "City Council adopted the Active Transportation and Safety Action Plans on April 15, the product of an 18-month process involving city staff, consultants, community stakeholders, and public input."
+  legacy: "Established the High-Risk Network map for walking and biking, identifying Detroit Avenue, Madison Avenue, 117th Street, Clifton Boulevard, Hilliard Road, and Franklin Avenue as priority corridors."
+  sources:
+    primary:
+      text: "City of Lakewood"
+      url: "https://www.lakewoodoh.gov/bikinglakewood/"
+    secondary:
+      text: "The Land"
+      url: "https://thelandcle.org/stories/lakewood-prioritizes-safe-streets-with-active-transportation-strategic-plan-complete-streets-ordinance/"
+
+- year: 2024
+  title: "Zoning Code Comprehensive Update Launched"
+  description: "The city began seeking qualified consultants to lead a comprehensive update to Lakewood's zoning code, which was last fully updated in 1996."
+  legacy: "The first comprehensive zoning overhaul in nearly three decades, aimed at aligning the code with the Community Vision and modern best practices for a dense, historic community."
+  sources:
+    primary:
+      text: "City of Lakewood"
+      url: "https://www.lakewoodoh.gov/zoning-update2024/"
+
+- year: 2024
+  title: "Last Mile Transit Study Commissioned"
+  description: "The city hired Iteris Inc. to study options for closing the 'last mile' gap in public transit, funded by nearly $150,000 in county-awarded American Rescue Act dollars."
+  legacy: "The first formal study of local transit options since the Lakewood Community Circulator was discontinued roughly 15 years prior."
+  sources:
+    primary:
+      text: "Ideastream"
+      url: "https://www.ideastream.org/community/2024-04-24/lakewood-studying-options-to-close-the-last-mile-gap-in-public-transit"
+
+- year: 2019
+  title: "Lakewood Hospital Demolished"
+  description: "The former Lakewood Hospital building was demolished, leaving a 5.7-acre vacant site on Detroit Avenue in the heart of downtown Lakewood."
+  legacy: "The vacant site — known locally as 'The Pit' — became the most significant redevelopment opportunity in the city and the future home of Lakewood Common."
+  sources:
+    primary:
+      text: "Cleveland 19"
+      url: "https://www.cleveland19.com/2024/12/17/deal-approved-develop-former-lakewood-hospital-site/"
+
+- year: 2016
+  title: "Human Rights Commission Established"
+  description: "Lakewood established a Human Rights Commission as part of a comprehensive Human Rights Ordinance protecting citizens from discrimination in housing, employment, education, and public accommodations."
+  legacy: "Made Lakewood one of the more progressive inner-ring suburbs in Northeast Ohio on civil rights protections."
+  sources:
+    primary:
+      text: "City of Lakewood"
+      url: "https://www.lakewoodoh.gov/planning-zoning/"
+
+- year: 2012
+  title: "Community Vision Adopted"
+  description: "City Council and the Planning Commission adopted the Community Vision, a planning document that serves in place of a traditional master plan, centering on six focus areas: commercial development, housing, community wellness, safety, mobility, and education/culture."
+  legacy: "Remains the guiding framework for all city planning decisions, with data updates in 2017 and 2019. The 2024 zoning code update is being aligned with the Vision."
+  sources:
+    primary:
+      text: "City of Lakewood"
+      url: "https://www.lakewoodoh.gov/community-vision/"
+
+- year: 2012
+  title: "Bicycle Master Plan Approved"
+  description: "City Council approved the Bicycle Master Plan, establishing a vision to make bicycling a main means of transportation through policies, programs, and projects."
+  legacy: "Laid the groundwork for the 2024 Active Transportation Strategic Plan and the ongoing expansion of bike infrastructure."
+  sources:
+    primary:
+      text: "City of Lakewood"
+      url: "https://www.lakewoodoh.gov/bikinglakewood/"
+
+- year: 2008
+  title: "LakewoodAlive Merger"
+  description: "Lakewood Community Progress Inc. (LCPI) merged with LakewoodAlive, a resident-based organization advocating citizen engagement in economic development. The merger broadened both organizations' capacity."
+  legacy: "Created the community development corporation that continues to drive housing outreach, small business support, and community events in Lakewood today."
+  sources:
+    primary:
+      text: "LakewoodAlive"
+      url: "https://www.lakewoodalive.org/about-us/"
+
+- year: 2006
+  title: "Birdtown National Register Historic District"
+  description: "The Birdtown neighborhood — established in 1892 for New York Central Railroad employees — was designated a National Register Historic District."
+  legacy: "Preserved the neighborhood's dense, Victorian-era row housing and catalyzed renewed investment, with millennials drawn to the walkable, amenity-rich area."
+  sources:
+    primary:
+      text: "City of Lakewood"
+      url: "https://www.lakewoodoh.gov/commercial-development/"
+
+- year: 1916
+  title: "Madison Avenue Streetcar Line Opens"
+  description: "The third and final major streetcar line opened along Madison Avenue, completing Lakewood's streetcar network alongside the Detroit Avenue (1893) and Clifton Boulevard (1903) lines."
+  legacy: "Spurred residential development along the city's southern corridor and established Madison Avenue as Lakewood's second major commercial strip."
+  sources:
+    primary:
+      text: "Lakewood Historical Society"
+      url: "https://lakewoodhistory.org/preservation/a-brief-history-of-lakewood/"
+
+- year: 1911
+  title: "Lakewood Incorporates as a City"
+  description: "After rapid population growth fueled by streetcar access, Lakewood was incorporated as a city (having been a village since 1903 and part of Rockport Township before that)."
+  legacy: "Formalized Lakewood's independent governance as it grew into one of Ohio's most densely populated communities."
+  sources:
+    primary:
+      text: "Encyclopedia of Cleveland History"
+      url: "https://case.edu/ech/articles/l/lakewood"
+
+- year: 1893
+  title: "Detroit Avenue Streetcar Line Opens"
+  description: "The first streetcar line through Lakewood opened along Detroit Avenue, connecting the area to Cleveland and catalyzing residential development along the route."
+  legacy: "Established the pattern of dense, walkable development along transit corridors that defines Lakewood's urban form to this day."
+  sources:
+    primary:
+      text: "Lakewood Historical Society"
+      url: "https://lakewoodhistory.org/preservation/a-brief-history-of-lakewood/"
+    secondary:
+      text: "Encyclopedia of Cleveland History"
+      url: "https://case.edu/ech/articles/s/suburbs"

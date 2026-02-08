@@ -1,0 +1,7 @@
+DirectoryPath: "public"
+CheckExternal: true
+CheckInternal: true
+ExternalTimeout: 30
+IgnoreURLs:
+  - "localhost"
+  - "127.0.0.1"
