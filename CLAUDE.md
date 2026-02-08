@@ -199,7 +199,7 @@ Front matter includes:
 - **Base URL**: `https://lakewood.urbanism-guide.com/`
 - **Theme settings**: Auto dark/light mode, TOC enabled, search enabled
 - **Markup**: Goldmark with unsafe HTML allowed (for shortcodes)
-- **Menu weights**: Quick Start (1), Glossary (2), Guides (3), Timeline (4), Data (5), Blog (6)
+- **Nav ordering**: Controlled by `weight` in each section's `_index.md` front matter — Quick Start (1), Glossary (2), Guides (3), Timeline (4), Data (5), Blog (6)
 
 ## Custom Components
 
