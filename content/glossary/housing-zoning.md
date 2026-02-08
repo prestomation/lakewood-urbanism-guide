@@ -12,7 +12,7 @@ A smaller, secondary housing unit on the same lot as a primary residence — suc
 
 **Why it matters:** Lakewood's dense, narrow-lot housing stock presents both challenges and opportunities for ADUs. As the city undertakes its [2024 zoning code update](https://www.lakewoodoh.gov/zoning-update2024/), ADU policy could expand housing options without changing neighborhood character.
 
-**Learn more:** [HUD ADU Guide](https://www.huduser.gov/portal/publications/adu.html) | [MRSC ADU Overview](https://mrsc.org/explore-topics/planning/housing/accessory-dwelling-units)
+**Learn more:** [HUD ADU Case Study](https://www.huduser.gov/portal/publications/affhsg/adu.html) | [MRSC ADU Overview](https://mrsc.org/explore-topics/planning/housing/accessory-dwelling-units)
 
 ### Board of Zoning Appeals (BZA)
 
@@ -30,7 +30,7 @@ A state-authorized tax incentive program that provides property tax abatements f
 
 **See also:** [Tax Increment Financing (TIF)](#tax-increment-financing-tif)
 
-**Learn more:** [Ohio Development Services Agency](https://development.ohio.gov/business/state-incentives/community-reinvestment-area) | [Cleveland.com CRA explainer](https://www.cleveland.com/)
+**Learn more:** [Ohio CRA Program (ORC §3735.65)](https://codes.ohio.gov/ohio-revised-code/section-3735.65) | [CRA Program Procedures (PDF)](https://dam.assets.ohio.gov/image/upload/development.ohio.gov/business/stateincentives/CRA%20Procedures.pdf)
 
 ### Conditional Use Permit
 

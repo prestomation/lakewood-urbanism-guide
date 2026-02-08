@@ -32,7 +32,7 @@ An Ohio state program that provides property tax abatements for new construction
 
 **See also:** [Tax Increment Financing (TIF)](#tax-increment-financing-tif)
 
-**Learn more:** [Ohio Development Services Agency](https://development.ohio.gov/business/state-incentives/community-reinvestment-area)
+**Learn more:** [Ohio CRA Program (ORC §3735.65)](https://codes.ohio.gov/ohio-revised-code/section-3735.65)
 
 ### Impact Fees
 
@@ -66,7 +66,7 @@ A public financing tool that uses the increase in property tax revenue generated
 
 **See also:** [Community Reinvestment Area (CRA)](#community-reinvestment-area-cra)
 
-**Learn more:** [Ohio Development Services Agency](https://development.ohio.gov/) | [Crain's Cleveland Business](https://www.crainscleveland.com/)
+**Learn more:** [Ohio TIF Summary (PDF)](https://dam.assets.ohio.gov/image/upload/development.ohio.gov/business/stateincentives/TIF_IncentiveDistrictsSummary.pdf) | [Crain's Cleveland Business](https://www.crainscleveland.com/)
 
 ### Tax Abatement
 
@@ -74,6 +74,6 @@ A reduction or elimination of property taxes for a defined period, used to incen
 
 **Why it matters:** Tax abatements are a common tool in Northeast Ohio for encouraging development. The Lakewood Common project includes a CRA-based abatement. Understanding the terms (duration, scope, what's abated) is important for evaluating whether public benefits justify the tax revenue foregone.
 
-**Learn more:** [Ohio Development Services Agency](https://development.ohio.gov/business/state-incentives/community-reinvestment-area)
+**Learn more:** [Ohio CRA Program (ORC §3735.65)](https://codes.ohio.gov/ohio-revised-code/section-3735.65)
 
 *Last updated: February 2026*
