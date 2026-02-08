@@ -1,0 +1,45 @@
+name: PR Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.147.0"
+          extended: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: pip install pyyaml
+
+      - name: Validate timeline order
+        run: python3 scripts/validate-timeline.py
+
+      - name: Build
+        run: hugo --gc --minify -b "https://lakewood.urbanism-guide.com/pr-preview/${{ github.event.number }}/"
+
+      - name: Deploy Preview
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          destination_dir: pr-preview/${{ github.event.number }}
+          keep_files: true
