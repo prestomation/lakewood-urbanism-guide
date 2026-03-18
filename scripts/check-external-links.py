@@ -1,123 +1,255 @@
 #!/usr/bin/env python3
-"""Check external links in all Markdown content files."""
+"""
+Check for broken external links in content files.
 
-import os
+Detects both HTTP 404 responses and soft 404s (HTTP 200 with "Page Not Found" content).
+Uses concurrent requests for faster checking.
+"""
+
 import re
 import sys
 import time
-import urllib.request
-import urllib.error
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
+from urllib.request import urlopen, Request
+from urllib.error import HTTPError, URLError
 
-CONTENT_DIR = "content"
-TIMEOUT = 30
-MAX_RETRIES = 3
-RETRY_DELAY = 2  # seconds, doubles each retry
-LINK_PATTERN = re.compile(r'\[([^\]]*)\]\((https?://[^\)]+)\)')
+MAX_WORKERS = 10
 
-# User-Agent that mirrors a real browser to avoid bot-blocking by sites like
-# census.gov, cleveland.com, and codelibrary.amlegal.com
-USER_AGENT = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-    "AppleWebKit/537.36 (KHTML, like Gecko) "
-    "Chrome/120.0.0.0 Safari/537.36"
-)
-
-
-def find_markdown_files(directory):
-    """Find all .md files in directory tree."""
-    md_files = []
-    for root, _, files in os.walk(directory):
-        for f in files:
-            if f.endswith(".md"):
-                md_files.append(os.path.join(root, f))
-    return md_files
+# Domains to skip (internal, always valid, or known to block bots)
+SKIP_DOMAINS = {
+    'localhost',
+    '127.0.0.1',
+    'example.com',
+    'example.org',
+    # GitHub - their bot detection causes false positives
+    'github.com',
+    'raw.githubusercontent.com',
+    # Social media sites that block bots
+    'twitter.com',
+    'x.com',
+    'facebook.com',
+    'linkedin.com',
+}
 
 
-def extract_links(filepath):
-    """Extract external URLs from a Markdown file."""
-    links = []
-    with open(filepath, "r") as f:
-        for line_num, line in enumerate(f, 1):
-            for match in LINK_PATTERN.finditer(line):
-                links.append((match.group(2), line_num))
-    return links
+def find_external_urls(repo_root: Path) -> dict[str, list[tuple[int, str]]]:
+    """
+    Find all external URLs in the repository.
 
+    Returns:
+        dict mapping file paths to list of (line_number, url) tuples
+    """
+    # Two patterns to catch URLs:
+    # 1. Markdown links: [text](url) - handles URLs with balanced parens like (a-z)
+    # 2. YAML urls: url: "https://..." - captures URL inside quotes
+    # 3. Bare URLs ending at whitespace
+    # For markdown, match URL chars including balanced parens: (text) groups
+    markdown_link = re.compile(r'\]\((https?://(?:[^()\s]|\([^)]*\))+)\)')
+    yaml_url = re.compile(r'url:\s*["\']?(https?://[^\s"\']+)["\']?')
+    bare_url = re.compile(r'(?<![(\["\'<])(https?://[^\s"\'<>\)\]]+)')
+    results = {}
 
-def check_url(url):
-    """Check if a URL is reachable, with retries and exponential backoff."""
-    for attempt in range(MAX_RETRIES):
-        try:
-            req = urllib.request.Request(url, method="HEAD")
-            req.add_header("User-Agent", USER_AGENT)
-            req.add_header("Accept", "text/html,application/xhtml+xml,*/*")
-            with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
-                if resp.status < 400:
-                    return True
-        except (urllib.error.URLError, urllib.error.HTTPError, OSError):
-            pass
+    # Search in content and data directories
+    search_paths = [
+        repo_root / "content",
+        repo_root / "data",
+    ]
 
-        # Fall back to GET on last HEAD attempt or if HEAD returned error
-        try:
-            req = urllib.request.Request(url, method="GET")
-            req.add_header("User-Agent", USER_AGENT)
-            req.add_header("Accept", "text/html,application/xhtml+xml,*/*")
-            with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
-                if resp.status < 400:
-                    return True
-        except urllib.error.HTTPError as e:
-            # 403 often means bot-blocking, not a broken link
-            if e.code == 403:
-                return True
-            if attempt < MAX_RETRIES - 1:
-                time.sleep(RETRY_DELAY * (2 ** attempt))
+    extensions = {'.md', '.yaml', '.yml', '.html'}
+
+    for search_path in search_paths:
+        if not search_path.exists():
+            continue
+
+        for file_path in search_path.rglob('*'):
+            if file_path.suffix not in extensions:
                 continue
-            return False
-        except (urllib.error.URLError, OSError):
-            if attempt < MAX_RETRIES - 1:
-                time.sleep(RETRY_DELAY * (2 ** attempt))
+            if not file_path.is_file():
                 continue
-            return False
 
+            try:
+                content = file_path.read_text(encoding='utf-8')
+            except Exception:
+                continue
+
+            file_urls = []
+            for line_num, line in enumerate(content.splitlines(), 1):
+                urls_found = []
+                # Try markdown links first (highest priority, captures full URL in parens)
+                for match in markdown_link.finditer(line):
+                    urls_found.append(match.group(1).rstrip('.,;:'))
+                # Try YAML url fields
+                for match in yaml_url.finditer(line):
+                    urls_found.append(match.group(1).rstrip('.,;:'))
+                # Fall back to bare URLs for anything not caught by markdown/yaml
+                for match in bare_url.finditer(line):
+                    url = match.group(1).rstrip('.,;:')
+                    # Skip if this URL is a prefix of an already-found URL
+                    # (means markdown pattern got the full URL with parens)
+                    if not any(found_url.startswith(url) and found_url != url for found_url in urls_found):
+                        # Also skip if already found
+                        if url not in urls_found:
+                            urls_found.append(url)
+
+                for url in urls_found:
+                    # Skip internal/problematic domains
+                    if not should_skip_url(url):
+                        file_urls.append((line_num, url))
+
+            if file_urls:
+                rel_path = str(file_path.relative_to(repo_root))
+                results[rel_path] = file_urls
+
+    return results
+
+
+def should_skip_url(url: str) -> bool:
+    """Check if URL should be skipped based on domain."""
+    for domain in SKIP_DOMAINS:
+        if domain in url:
+            return True
     return False
 
 
+def check_url(url: str, retries: int = 2) -> tuple[bool, str]:
+    """
+    Check if a URL is valid (not a 404 or soft 404).
+
+    Returns:
+        tuple: (is_valid, error_message or empty string)
+    """
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+    }
+
+    for attempt in range(retries + 1):
+        try:
+            req = Request(url, headers=headers)
+            with urlopen(req, timeout=30) as response:
+                content = response.read().decode('utf-8', errors='ignore')
+
+                # Check for soft 404 indicators in the page content
+                soft_404_patterns = [
+                    'Page Not Found',
+                    'page not found',
+                    '404 - Not Found',
+                    "Sorry, we couldn't find",
+                    'This page doesn\'t exist',
+                    'Nothing was found',
+                    'Oops! That page can\'t be found',
+                ]
+
+                for pattern in soft_404_patterns:
+                    if pattern in content:
+                        # Check if it's in the title or main content area
+                        # to avoid false positives from sidebar/footer text
+                        if (f'<title>{pattern}' in content or
+                            f'<h1>{pattern}' in content or
+                            (f'<h1 class' in content and pattern in content[:5000])):
+                            return False, f"Soft 404 detected (page contains '{pattern}')"
+
+                return True, ""
+
+        except HTTPError as e:
+            if e.code == 404:
+                return False, "HTTP 404 Not Found"
+            elif e.code == 403:
+                # Some sites block bots - treat as OK
+                return True, ""
+            elif e.code in (406, 429, 503):  # Not acceptable, rate limited, or unavailable
+                if attempt < retries:
+                    time.sleep(2 ** attempt)  # Exponential backoff
+                    continue
+                return False, f"HTTP {e.code} (after {retries + 1} attempts)"
+            else:
+                return False, f"HTTP {e.code}"
+
+        except URLError as e:
+            if attempt < retries:
+                time.sleep(2 ** attempt)
+                continue
+            return False, f"Connection error: {e.reason}"
+
+        except Exception as e:
+            return False, f"Error: {str(e)}"
+
+    return False, "Max retries exceeded"
+
+
 def main():
-    md_files = find_markdown_files(CONTENT_DIR)
-    broken = []
+    script_dir = Path(__file__).parent
+    repo_root = script_dir.parent
+
+    print("Checking external links for broken URLs...")
+    print()
+
+    # Find all URLs
+    url_map = find_external_urls(repo_root)
+
+    if not url_map:
+        print("No external URLs found in the repository.")
+        sys.exit(0)
+
+    # Deduplicate URLs while tracking their locations
+    unique_urls: dict[str, list[tuple[str, int]]] = {}
+    for file_path, urls in url_map.items():
+        for line_num, url in urls:
+            if url not in unique_urls:
+                unique_urls[url] = []
+            unique_urls[url].append((file_path, line_num))
+
+    print(f"Found {len(unique_urls)} unique external URLs across {len(url_map)} files")
+    print(f"Checking with {MAX_WORKERS} concurrent workers...")
+    print()
+
+    # Check URLs concurrently
+    broken_links = []
     checked = 0
+    total = len(unique_urls)
 
-    # Deduplicate URLs: check each unique URL only once
-    url_locations = {}  # url -> [(filepath, line_num), ...]
-    for filepath in md_files:
-        links = extract_links(filepath)
-        for url, line_num in links:
-            url_locations.setdefault(url, []).append((filepath, line_num))
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        future_to_url = {
+            executor.submit(check_url, url): (url, locations)
+            for url, locations in unique_urls.items()
+        }
 
-    unique_urls = list(url_locations.keys())
-    url_results = {}  # url -> True/False
+        for future in as_completed(future_to_url):
+            url, locations = future_to_url[future]
+            checked += 1
+            display_url = url[:70] + "..." if len(url) > 70 else url
 
-    for url in unique_urls:
-        checked += 1
-        result = check_url(url)
-        url_results[url] = result
-        if result:
-            print(f"  OK: {url}")
-        else:
-            locations = url_locations[url]
-            for filepath, line_num in locations:
-                broken.append((filepath, line_num, url))
-            print(f"  BROKEN: {url}")
-            for filepath, line_num in locations:
-                print(f"    referenced in {filepath}:{line_num}")
+            is_valid, error = future.result()
 
-    print(f"\nChecked {checked} unique links across {len(md_files)} files")
-    if broken:
-        print(f"Found {len(broken)} broken link reference(s):")
-        for filepath, line_num, url in broken:
-            print(f"  {filepath}:{line_num} -> {url}")
+            if not is_valid:
+                broken_links.append((url, error, locations))
+                print(f"  [{checked}/{total}] BROKEN: {display_url}")
+                print(f"           {error}")
+            else:
+                print(f"  [{checked}/{total}] OK: {display_url}")
+
+    print()
+
+    # Report results
+    if broken_links:
+        print("=" * 60)
+        print(f"BROKEN LINKS FOUND: {len(broken_links)}")
+        print("=" * 60)
+        print()
+
+        for url, error, locations in broken_links:
+            print(f"URL: {url}")
+            print(f"Error: {error}")
+            print("Found in:")
+            for file_path, line_num in locations:
+                print(f"  - {file_path}:{line_num}")
+            print()
+
         sys.exit(1)
     else:
-        print("All links valid!")
+        print(f"All {len(unique_urls)} external links are valid!")
         sys.exit(0)
 
 

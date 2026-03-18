@@ -1,0 +1,25 @@
+/* ==========================================================================
+   Lakewood Urbanism Guide — Brand Colors
+   Lakewood-inspired palette: Lake Erie, historic brick, Ohio greens
+   Lake Blue #1B6B93 | Forest Green #2E8B57 | Heritage Gold #D4A843
+   ========================================================================== */
+
+:root {
+  --color-link: #1B6B93;
+  --accent-teal: #2E8B57;
+  --accent-emerald: #5CB88A;
+  --accent-gold: #D4A843;
+  --accent-light-blue: #5DB8D9;
+  --accent-gradient: linear-gradient(135deg, #1B6B93, #2E8B57);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-link: #5DB8D9;
+    --accent-teal: #5CB88A;
+    --accent-emerald: #7DCCA0;
+    --accent-gold: #E8C36A;
+    --accent-light-blue: #8DD5E8;
+    --accent-gradient: linear-gradient(135deg, #5DB8D9, #5CB88A);
+  }
+}
