@@ -1,21 +1,12 @@
 baseURL = "https://lakewood.urbanism-guide.com/"
 title = "Lakewood Urbanism Guide"
-theme = "hugo-book"
 
-# Hugo settings
-enableGitInfo = true
-enableEmoji = false
+[module]
+[[module.imports]]
+path = "github.com/prestomation/urbanism-guide-core"
 
 [params]
-  BookTheme = "auto"
-  BookToC = true
-  BookSearch = true
+  description = "A practical guide for Lakewood urbanists and advocates. Understand the issues, learn the terms, and show up ready to contribute."
+  goatCounterCode = "lakewood-urbanism-guide"
   BookRepo = "https://github.com/prestomation/lakewood-urbanism-guide"
-  BookEditPath = "edit/main"
-  BookDateFormat = "January 2, 2006"
-  BookSection = "/"
-
-[markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
+  BookEditPath = "edit/main/content"
