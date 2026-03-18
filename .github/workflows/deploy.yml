@@ -9,6 +9,6 @@ jobs:
   deploy:
     permissions:
       contents: write
-    uses: prestomation/urbanism-guide-core/.github/workflows/deploy.yml@v0.3.0
+    uses: prestomation/urbanism-guide-core/.github/workflows/deploy.yml@v0.3.1
     with:
       timezone: "America/New_York"
