@@ -5,3 +5,5 @@ ExternalTimeout: 30
 IgnoreURLs:
   - "localhost"
   - "127.0.0.1"
+  - "codelibrary.amlegal.com"
+  - "www.census.gov/quickfacts"

@@ -28,7 +28,7 @@ A state-authorized tax incentive program that provides property tax abatements f
 
 **Why it matters:** The [Lakewood Common](https://www.lakewoodoh.gov/groundbreaking-scheduled-for-lakewood-downtown-development-project/) redevelopment site was designated a CRA, allowing up to 15 years of property tax abatement on structures to make the $119 million project financially viable.
 
-**See also:** [Tax Increment Financing (TIF)](#tax-increment-financing-tif)
+**See also:** [Tax Increment Financing (TIF)]({{< relref "funding-policy#tax-increment-financing-tif" >}})
 
 **Learn more:** [Ohio CRA Program (ORC §3735.65)](https://codes.ohio.gov/ohio-revised-code/section-3735.65) | [CRA Program Procedures (PDF)](https://dam.assets.ohio.gov/image/upload/development.ohio.gov/business/stateincentives/CRA%20Procedures.pdf)
 
@@ -46,7 +46,7 @@ A zoning overlay that protects the architectural character of a designated area 
 
 **Why it matters:** Lakewood has designated HPD zones and individual Historic Properties (HP) under its zoning code. The **Birdtown** neighborhood was designated a [National Register Historic District in 2006](https://www.lakewoodoh.gov/commercial-development/). Exterior modifications in these areas go through the Architectural Board of Review.
 
-**See also:** [Architectural Board of Review](#architectural-board-of-review)
+**See also:** [Architectural Board of Review]({{< relref "land-use#architectural-board-of-review-abr" >}})
 
 **Learn more:** [Lakewood Planning & Zoning](https://www.lakewoodoh.gov/planning-zoning/) | [National Register of Historic Places](https://www.nps.gov/subjects/nationalregister/index.htm)
 
