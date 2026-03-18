@@ -4,7 +4,7 @@ This is a city repo for the urbanism-guide platform.
 
 ## First: Read the Platform Guide
 
-Before making any changes, read the platform AGENTS.md for architecture, CI rules, required scripts, and workflow conventions:
+Before making any changes, read the platform AGENTS.md for architecture, CI rules, and workflow conventions:
 
 ```bash
 gh api repos/prestomation/urbanism-guide-core/contents/AGENTS.md --jq '.content' | base64 -d
@@ -28,9 +28,9 @@ Files in this repo that override or extend core:
 - `data/timeline.yaml` — city timeline entries
 - `data/site_stats.yaml` — city statistics for `{{< stat >}}` shortcode
 
-## CI Rules (summary — full details in core AGENTS.md)
+## CI Rules
 
-1. **Never push directly to `main`** — always open a PR
-2. **Use `poll_pr.sh`** after every push to a PR branch — waits for CI + Amazon Q
-3. **Use `check_deploy.sh`** after every merge — verifies deploy + HTTP 200
-4. Scripts at: `~/.openclaw/workspace/skills/post-pull-request/scripts/`
+1. **Never push directly to `main`** — all changes go through a PR
+2. **PR preview CI must pass before merging** — `pr-preview.yml` runs the full build and validation
+3. **After merging, verify the deploy CI on `main` completes successfully** and confirm the live site is working
+4. **If deploy fails, fix via a new PR** — do not push directly to `main`
