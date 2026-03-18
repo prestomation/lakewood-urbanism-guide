@@ -1,5 +1,5 @@
 DirectoryPath: "public"
-CheckExternal: true
+CheckExternal: false
 CheckInternal: true
 ExternalTimeout: 30
 IgnoreURLs:

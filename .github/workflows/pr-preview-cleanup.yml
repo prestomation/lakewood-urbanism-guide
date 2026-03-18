@@ -8,4 +8,4 @@ jobs:
   cleanup:
     permissions:
       contents: write
-    uses: prestomation/urbanism-guide-core/.github/workflows/pr-preview-cleanup.yml@v0.1.5
+    uses: prestomation/urbanism-guide-core/.github/workflows/pr-preview-cleanup.yml@v0.3.0

@@ -9,7 +9,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    uses: prestomation/urbanism-guide-core/.github/workflows/pr-preview.yml@v0.1.5
+    uses: prestomation/urbanism-guide-core/.github/workflows/pr-preview.yml@v0.3.0
     with:
       timezone: "America/New_York"
       base_url: "https://lakewood.urbanism-guide.com"
